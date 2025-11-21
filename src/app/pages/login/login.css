@@ -1,0 +1,28 @@
+.login-container {
+  background-color: #f2e9e4;
+}
+
+.login-card {
+  background-color: #ffffff;
+  border: 2px solid #c9ada7;
+  width: 100%;
+  max-width: 420px;
+}
+
+.btn-primary {
+  background-color: #4a4e69;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #22223b;
+}
+
+.text-secondary {
+  color: #9a8c98 !important;
+}
+
+input:focus {
+  border-color: #9a8c98;
+  box-shadow: 0 0 4px #c9ada7;
+}
