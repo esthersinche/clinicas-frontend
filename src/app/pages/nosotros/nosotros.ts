@@ -4,10 +4,10 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-nosotros',
-    standalone: true,
-      imports: [RouterLink],
+  standalone: true,
+  imports: [RouterLink],
   templateUrl: './nosotros.html',
   styleUrls: ['./nosotros.css']
 })
-export class NosotrosComponent {}
+export class NosotrosComponent { }
 

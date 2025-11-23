@@ -1,1 +1,143 @@
-<p>dashboard-doc works!</p>
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+
+    <!-- TÍTULO -->
+    <h3 class="fw-bold text-secondary mb-4">Mis Citas Programadas</h3>
+
+    <!-- FILTROS -->
+    <div class="card shadow-sm p-3 mb-4">
+        <div class="row g-3">
+
+            <!-- BUSCAR POR NOMBRE -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Buscar Paciente:</label>
+                <input type="text" class="form-control" placeholder="Ej. Juan Pérez">
+            </div>
+
+            <!-- FECHA INICIO -->
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Fecha:</label>
+                <input type="date" class="form-control">
+            </div>
+
+            <!-- BOTÓN APLICAR -->
+            <div class="col-md-2 d-flex align-items-end">
+                <button class="btn btnbrown w-100">Filtrar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TABLA DE CITAS -->
+    <div class="table-responsive shadow-sm">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Paciente</th>
+                    <th>Especialidad</th>
+                    <th>Estado</th>
+                    <th>Canal</th>
+                    <th>Inicio</th>
+                    <th>Término</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Carlos Ramírez</td>
+                    <td>Cardiología</td>
+                    <td>
+                        <select class="form-select form-select-sm">
+                            <option>Pendiente</option>
+                            <option>Atendido</option>
+                            <option>Deserción</option>
+                        </select>
+                    </td>
+                    <td>Presencial</td>
+                    <td>2025-01-04 10:00 AM</td>
+                    <td>2025-01-04 10:30 AM</td>
+
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                            data-bs-target="#detalleCitaModal">
+                            Ver más
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- MODAL: Detalles de la Cita -->
+<div class="modal fade" id="detalleCitaModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- HEADER -->
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Detalles de la Cita</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- BODY -->
+            <div class="modal-body">
+                <!-- MOTIVO DE LA CITA -->
+                <div class="mb-4">
+                    <h6 class="fw-bold text-secondary">Motivo de la Cita</h6>
+                    <p class="text-muted">Dolor persistente en el pecho durante los últimos días.</p>
+                </div>
+                <!-- DATOS DEL PACIENTE -->
+                <div class="mb-4">
+                    <h6 class="fw-bold text-secondary">Datos del Paciente</h6>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="fw-semibold">Nombre:</label>
+                            <p class="text-muted mb-0">Juan Pérez López</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="fw-semibold">DNI:</label>
+                            <p class="text-muted mb-0">47851236</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- HISTORIAL MÉDICO -->
+                <div>
+                    <h6 class="fw-bold text-secondary">Historial Médico</h6>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="fw-semibold">Fecha de Nacimiento:</label>
+                            <p class="text-muted mb-0">1990-06-15</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fw-semibold">Sexo:</label>
+                            <p class="text-muted mb-0">Masculino</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fw-semibold">Alergias:</label>
+                            <p class="text-muted mb-0">Penicilina</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="fw-semibold">Contacto de Emergencia:</label>
+                            <p class="text-muted mb-0">María López</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="fw-semibold">Teléfono de Emergencia:</label>
+                            <p class="text-muted mb-0">987 654 321</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <small class="text-muted ">
+                        *Este historial es solo un ejemplo de lo que tenemos planeado. El real aun está en desarrollo.
+                    </small>
+                </div>
+            </div>
+            <!-- FOOTER -->
+            <div class="modal-footer">
+                <button class="btn btnbrown px-4" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

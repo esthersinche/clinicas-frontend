@@ -1,1 +1,82 @@
-<p>pacientes works!</p>
+<app-navbar></app-navbar>
+<div class="container mt-5 mb-5">
+    <!-- TÍTULO -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-secondary">Registrar Nuevo Paciente</h2>
+        <p class="text-muted">Completa los datos del paciente y su historial médico.</p>
+    </div>
+    <!-- FORMULARIO GENERAL -->
+    <div class="card shadow-sm p-4 mb-4">
+        <h5 class="fw-bold text-secondary mb-3">Datos del Paciente</h5>
+
+        <div class="row g-3">
+            <!-- Nombre Completo -->
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Nombre Completo</label>
+                <input type="text" class="form-control" placeholder="Ej. Juan Pérez López">
+            </div>
+            <!-- Nacionalidad -->
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Nacionalidad</label>
+                <input type="text" class="form-control" placeholder="Ej. Peruana">
+            </div>
+            <!-- DNI -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">DNI</label>
+                <input type="text" class="form-control" placeholder="Ej. 74251839">
+            </div>
+            <!-- Teléfono -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Teléfono</label>
+                <input type="text" class="form-control" placeholder="Ej. 987654321">
+            </div>
+            <!-- Email -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Correo Electrónico</label>
+                <input type="email" class="form-control" placeholder="Ej. paciente@gmail.com">
+            </div>
+        </div>
+    </div>
+
+    <!-- HISTORIAL MÉDICO -->
+    <div class="card shadow-sm p-4">
+        <h5 class="fw-bold text-secondary mb-3">Historial Médico</h5>
+        <div class="row g-3">
+            <!-- Fecha de nacimiento -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Fecha de Nacimiento</label>
+                <input type="date" class="form-control">
+            </div>
+            <!-- Sexo -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Sexo</label>
+                <select class="form-select">
+                    <option value="">Seleccionar...</option>
+                    <option>Masculino</option>
+                    <option>Femenino</option>
+                    <option>Otro</option>
+                </select>
+            </div>
+            <!-- Alergias -->
+            <div class="col-md-12">
+                <label class="form-label fw-semibold">Alergias</label>
+                <textarea class="form-control" rows="2" placeholder="Ej. Alergia a penicilina"></textarea>
+            </div>
+            <!-- Contacto de emergencia -->
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Contacto de Emergencia</label>
+                <input type="text" class="form-control" placeholder="Ej. María Pérez">
+            </div>
+            <!-- Teléfono de emergencia -->
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Teléfono de Emergencia</label>
+                <input type="text" class="form-control" placeholder="Ej. 912345678">
+            </div>
+        </div>
+        <!-- BOTONES -->
+        <div class="text-end mt-4">
+            <button class="btn btn-secondary me-2">Cancelar</button>
+            <button class="btn btnbrown">Guardar Paciente</button>
+        </div>
+    </div>
+</div>

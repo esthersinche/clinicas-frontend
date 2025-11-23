@@ -1,1 +1,212 @@
-<p>dashboard works!</p>
+<app-navbar></app-navbar>
+<div class="container mt-5">
+    <!-- ENCABEZADO -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-secondary">Panel de Empleado</h2>
+        <p class="text-muted">Bienvenido. Selecciona una opción para gestionar una cita.</p>
+    </div>
+    <!-- TARJETAS -->
+    <div class="row g-4 justify-content-center">
+        <!-- PACIENTES -->
+        <div class="col-md-4">
+            <div class="card shadow-sm card-hover h-100 text-center p-3">
+                <div class="card-body">
+                    <i class="bi bi-person fs-1 text-brown mb-3"></i>
+                    <h5 class="fw-bold mb-2">Registrar un Paciente</h5>
+                    <p class="text-muted">Registra un nuevo paciente a la clinica.</p>
+                    <a class="btn btnbrown mt-2 px-3" routerLink="/recep/paciente">Entrar</a>
+                </div>
+            </div>
+        </div>
+        <!-- CITAS -->
+        <div class="col-md-4">
+            <div class="card shadow-sm card-hover h-100 text-center p-3">
+                <div class="card-body">
+                    <i class="bi bi-calendar fs-1 text-brown mb-3"></i>
+                    <h5 class="fw-bold mb-2">Generar una Cita</h5>
+                    <p class="text-muted">Genera citas, asigna doctores y fechas.</p>
+                    <a class="btn btnbrown mt-2 px-3" routerLink="/recep/citas">Entrar</a>
+                </div>
+            </div>
+        </div>
+        <!-- TÍTULO -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="fw-bold text-secondary">Dashboard de Citas</h3>
+        </div>
+        <!-- FILTROS -->
+        <div class="card shadow-sm p-3 mb-4">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Doctor:</label>
+                    <select class="form-select">
+                        <option value="">Todos</option>
+                        <option>Dr. Ricardo Gómez</option>
+                        <option>Dra. Ana Salinas</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Especialidad:</label>
+                    <select class="form-select">
+                        <option value="">Todas</option>
+                        <option>Cardiología</option>
+                        <option>Pediatría</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Buscar Paciente:</label>
+                    <input type="text" class="form-control" placeholder="Nombre del paciente">
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button class="btn btnbrown w-100">Aplicar Filtros</button>
+                </div>
+            </div>
+        </div>
+        <!-- TABLA -->
+        <div class="table-responsive shadow-sm">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Paciente</th>
+                        <th>Doctor</th>
+                        <th>Especialidad</th>
+                        <th>Canal</th>
+                        <th>Inicio</th>
+                        <th>Fin</th>
+                        <th>Estado</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Juan Pérez</td>
+                        <td>Dr. Ricardo Gómez</td>
+                        <td>Cardiología</td>
+                        <td>Presencial</td>
+                        <td>2025-01-28 08:30</td>
+                        <td>2025-01-28 09:00</td>
+                        <td>
+                            <span class="badge bg-warning text-dark">Pendiente</span>
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                                data-bs-target="#detallesModal">Detalles</button>
+                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                                data-bs-target="#reprogramarCitaModal">Reprogramar</button>
+                            <button class="btn btn-sm btn-outline-danger">Cancelar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="detallesModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- HEADER -->
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Detalles de la Cita</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- BODY -->
+            <div class="modal-body">
+                <!-- MOTIVO DE LA CITA -->
+                <div class="mb-4">
+                    <h6 class="fw-bold text-secondary">Motivo de la Cita</h6>
+                    <p class="text-muted">Dolor persistente en el pecho durante los últimos días.</p>
+                </div>
+                <!-- DATOS DEL PACIENTE -->
+                <div class="mb-4">
+                    <h6 class="fw-bold text-secondary">Datos del Paciente</h6>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="fw-semibold">Nombre:</label>
+                            <p class="text-muted mb-0">Juan Pérez López</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="fw-semibold">DNI:</label>
+                            <p class="text-muted mb-0">47851236</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- HISTORIAL MÉDICO -->
+                <div>
+                    <h6 class="fw-bold text-secondary">Historial Médico</h6>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="fw-semibold">Fecha de Nacimiento:</label>
+                            <p class="text-muted mb-0">1990-06-15</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fw-semibold">Sexo:</label>
+                            <p class="text-muted mb-0">Masculino</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fw-semibold">Alergias:</label>
+                            <p class="text-muted mb-0">Penicilina</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="fw-semibold">Contacto de Emergencia:</label>
+                            <p class="text-muted mb-0">María López</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="fw-semibold">Teléfono de Emergencia:</label>
+                            <p class="text-muted mb-0">987 654 321</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <small class="text-muted ">
+                        *Este historial es solo un ejemplo de lo que tenemos planeado. El real aun está en desarrollo.
+                    </small>
+                </div>
+            </div>
+            <!-- FOOTER -->
+            <div class="modal-footer">
+                <button class="btn btnbrown px-4" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL: REPROGRAMAR CITA (ESTÁTICO) -->
+<div class="modal fade" id="reprogramarCitaModal" tabindex="-1" aria-labelledby="reprogramarCitaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg border-0">
+
+      <!-- HEADER -->
+      <div class="modal-header" style="background:#4f3c3b; color:white;">
+        <h5 class="modal-title fw-semibold" id="reprogramarCitaLabel">Reprogramar Cita</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body">
+
+        <!-- NUEVA FECHA -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Nueva Fecha</label>
+          <input type="date" class="form-control">
+        </div>
+        <!-- HORAS -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">Hora Inicio</label>
+            <input type="time" class="form-control">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">Hora Fin</label>
+            <input type="time" class="form-control">
+          </div>
+        </div>
+
+      <!-- FOOTER -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btnbrown">Guardar Cambios</button>
+      </div>
+
+    </div>
+  </div>
+</div>

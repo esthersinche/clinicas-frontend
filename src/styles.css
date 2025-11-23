@@ -17,3 +17,16 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+
+.btnbrown{
+    background-color: #917b77 !important;
+    color: #ffffff !important;
+}
+.btnbrown:hover {
+  background-color: #5f504e !important;
+}
+
+.text-brown {
+  color: #8d7469 !important;
+}
+

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Navbar } from '../shared/navbar/navbar';
 
 @Component({
   selector: 'app-dashboard-doc',
-  imports: [],
+  standalone: true,
+    imports: [RouterLink, Navbar],
   templateUrl: './dashboard-doc.html',
   styleUrl: './dashboard-doc.css',
 })

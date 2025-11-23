@@ -1,19 +1,22 @@
 <!-- NAVBAR SUPERIOR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#">MedU</a>
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold text-light" routerLink="/nosotros">
+      <i class="bi bi-hospital me-1"></i> MedU
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav align-items-center">
-        <li class="nav-item"><a class="nav-link fw-semibold" href="#">Nuestros productos</a></li>
-        <li class="nav-item"><a class="nav-link fw-semibold" href="#">Reseñas</a></li>
-        <li class="nav-item mx-2"><a class="nav-link fw-semibold" href="#">Adquirir Servicio</a></li>
-<li class="nav-item">
-<a class="nav-link fw-semibold" routerLink="/login">Iniciar Sesión</a>
-</li>
-
+        <li class="nav-item"><a class="nav-link fw-semibold text-secondary" href="#">Reseñas</a></li>
+        <li class="nav-item mx-2"><a class="nav-link fw-semibold text-secondary" href="#">Adquirir Servicio</a></li>
+        <li class="nav-item">
+          <a class="btn btn-outline-red200 btnbrown ms-lg-3 px-3 text-light" routerLink="/login">
+            Iniciar Sesión
+          </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -23,14 +26,17 @@
 <section class="container my-5">
   <div class="row align-items-center">
     <div class="col-md-6 mb-4 mb-md-0">
-    <div class="ratio ratio-16x9 border rounded overflow-hidden">
-    <img src="https://i.pinimg.com/1200x/88/15/f1/8815f1ff894c4170b9275077e7a4b413.jpg" class="w-100 h-100 object-fit-cover" alt="Imagen de clínica">
-    </div>
+      <div class="ratio ratio-16x9 border rounded overflow-hidden">
+        <img src="https://i.pinimg.com/1200x/88/15/f1/8815f1ff894c4170b9275077e7a4b413.jpg"
+          class="w-100 h-100 object-fit-cover" alt="Imagen de clínica">
+      </div>
     </div>
     <div class="col-md-6">
       <h2 class="fw-bold mb-3 text-center text-muted">Sobre Nosotros</h2>
-      <p>Somos una empresa dedicada a ofrecer soluciones de <strong>organización y gestión de citas médicas</strong> para clínicas y consultorios.</p>
-      <p>Nuestro sistema permite administrar citas, horarios, doctores y pacientes desde una plataforma moderna y accesible.</p>
+      <p>Somos una empresa dedicada a ofrecer soluciones de <strong>organización y gestión de citas médicas</strong>
+        para clínicas y consultorios.</p>
+      <p>Nuestro sistema permite administrar citas, horarios, doctores y pacientes desde una plataforma moderna y
+        accesible.</p>
       <p>Buscamos mejorar la atención médica agilizando procesos y reduciendo tiempos de espera.</p>
     </div>
   </div>
@@ -38,21 +44,24 @@
   <div class="row mt-5">
     <h2 class=" text-center fw-bold p-3 bg-light">¿Qué ofrecemos?</h2>
     <div class="col-md-4 text-center mt-5">
-      <div class="rounded-circle bg-light d-flex justify-content-center align-items-center mx-auto mb-3" style="width: 120px; height: 120px;">
+      <div class="rounded-circle bg-light d-flex justify-content-center align-items-center mx-auto mb-3"
+        style="width: 120px; height: 120px;">
         <i class="bi bi-hospital fs-1 text-secondary"></i>
       </div>
       <h5 class="fw-semibold">Optimización</h5>
       <p>Gestión inteligente de horarios y recursos clínicos.</p>
     </div>
     <div class="col-md-4 text-center mt-5">
-      <div class="rounded-circle bg-light d-flex justify-content-center align-items-center mx-auto mb-3" style="width: 120px; height: 120px;">
+      <div class="rounded-circle bg-light d-flex justify-content-center align-items-center mx-auto mb-3"
+        style="width: 120px; height: 120px;">
         <i class="bi bi-people fs-1 text-secondary"></i>
       </div>
       <h5 class="fw-semibold">Accesibilidad</h5>
       <p>Interfaz moderna y fácil de usar para todos los perfiles.</p>
     </div>
     <div class="col-md-4 text-center mt-5">
-      <div class="rounded-circle bg-light d-flex justify-content-center align-items-center mx-auto mb-3" style="width: 120px; height: 120px;">
+      <div class="rounded-circle bg-light d-flex justify-content-center align-items-center mx-auto mb-3"
+        style="width: 120px; height: 120px;">
         <i class="bi bi-shield-check fs-1 text-secondary"></i>
       </div>
       <h5 class="fw-semibold">Seguridad</h5>

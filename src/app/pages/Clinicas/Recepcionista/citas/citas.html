@@ -1,1 +1,139 @@
-<p>citas works!</p>
+<app-navbar></app-navbar>
+<div class="container mt-5 mb-5">
+    <!-- TÍTULO -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-secondary">Generar Nueva Cita</h2>
+        <p class="text-muted">Busca un paciente y completa los datos para registrar su cita.</p>
+    </div>
+    <!-- BUSCAR PACIENTE -->
+    <div class="card shadow-sm p-4 mb-4">
+        <h5 class="fw-bold text-secondary mb-3">1. Buscar Paciente</h5>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">DNI del Paciente</label>
+                <input type="text" class="form-control" placeholder="Ej. 74251839">
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button class="btn btnbrown w-100">Buscar</button>
+            </div>
+        </div>
+        <!-- RESULTADO DE BÚSQUEDA (ejemplo) -->
+        <div class="mt-3">
+            <p class="text-muted small">Resultado:</p>
+            <div class="alert alert-light border d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="fw-semibold">Juan Pérez</span> — DNI: 74251839  
+                </div>
+                <button class="btn btn-sm btn-outline-primary">Seleccionar</button>
+            </div>
+        </div>
+    </div>
+    <!-- DATOS DE LA CITA (PASO 1) -->
+    <div class="card shadow-sm p-4 mb-4">
+        <h5 class="fw-bold text-secondary mb-3">2. Datos de la Cita</h5>
+        <div class="row g-3">
+            <!-- Motivo -->
+            <div class="col-md-12">
+                <label class="form-label fw-semibold">Motivo</label>
+                <textarea class="form-control" rows="2" placeholder="Describir brevemente el motivo de la cita"></textarea>
+            </div>
+            <!-- Especialidad -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Especialidad</label>
+                <select class="form-select">
+                    <option value="">Seleccionar...</option>
+                    <option>Cardiología</option>
+                    <option>Pediatría</option>
+                    <option>Ginecología</option>
+                    <option>Dermatología</option>
+                </select>
+            </div>
+            <!-- Estado -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Estado</label>
+                <input type="text" class="form-control" value="Pendiente" disabled>
+            </div>
+            <!-- Canal -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Canal</label>
+                <select class="form-select">
+                    <option>Presencial</option>
+                    <option>Virtual</option>
+                    <option>Telefónico</option>
+                </select>
+            </div>
+            <!-- Fecha -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Fecha</label>
+                <input type="date" class="form-control">
+            </div>
+            <!-- Hora inicio -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Horario de Inicio</label>
+                <input type="time" class="form-control">
+            </div>
+            <!-- Hora fin -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Horario de Fin</label>
+                <input type="time" class="form-control">
+            </div>
+        </div>
+    </div>
+    <!-- ASIGNAR DOCTOR (PASO 2) -->
+    <div class="card shadow-sm p-4">
+        <h5 class="fw-bold text-secondary mb-3">3. Asignar Doctor</h5>
+        <!-- Filtro por nombre -->
+        <div class="row g-3 mb-3">
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Buscar Doctor (por nombre):</label>
+                <input type="text" class="form-control" placeholder="Ej. Ricardo Gómez">
+            </div>
+        </div>
+        <!-- LISTA DE DOCTORES DISPONIBLES -->
+        <p class="text-muted small">Doctores disponibles según especialidad seleccionada:</p>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Doctor</th>
+                        <th>Especialidad</th>
+                        <th>Consultorio</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Ejemplo -->
+                    <tr>
+                        <td>Dr. Ricardo Gómez</td>
+                        <td>Cardiología</td>
+                        <td>Consultorio 05</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary">Seleccionar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Selección de horario (dependiente del doctor elegido) -->
+        <div class="row g-3 mt-4">
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Fecha</label>
+                <input type="date" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Horario (De)</label>
+                <input type="time" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Horario (Hasta)</label>
+                <input type="time" class="form-control">
+            </div>
+        </div>
+        <!-- BOTONES -->
+        <div class="text-end mt-4">
+            <button class="btn btn-secondary me-2">Cancelar</button>
+            <button class="btn btnbrown px-4">Guardar Cita</button>
+        </div>
+    </div>
+
+</div>

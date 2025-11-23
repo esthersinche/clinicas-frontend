@@ -1,0 +1,11 @@
+.navbar {
+  background-color: #C9ADA7 !important;
+}
+.nav-hover {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-hover:hover {
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}

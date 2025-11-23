@@ -1,1 +1,108 @@
-<p>doctores works!</p>
+<app-navbar></app-navbar>
+<div class="container mt-4">
+    <!-- TÍTULO -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-secondary">Gestión de Doctores</h3>
+
+        <button class="btn btnbrown px-4" data-bs-toggle="modal" data-bs-target="#doctorModal">
+            + Nuevo Doctor
+        </button>
+    </div>
+    <!-- FILTROS -->
+    <div class="card shadow-sm p-3 mb-4">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Buscar por CMP:</label>
+                <input type="text" class="form-control" placeholder="Ej. 123456">
+            </div>
+            <div class="col-md-5">
+                <label class="form-label fw-semibold">Filtrar por Especialidad:</label>
+                <select class="form-select">
+                    <option selected value="">Todas</option>
+                    <option>Cardiología</option>
+                    <option>Pediatría</option>
+                    <option>Ginecología</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button class="btn btnbrown w-100">Aplicar Filtros</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLA -->
+    <div class="table-responsive shadow-sm">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Nombre</th>
+                    <th>CMP</th>
+                    <th>Consultorio</th>
+                    <th>Especialidades</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- EJEMPLO DE FILA -->
+                <tr>
+                    <td>Dr. Ricardo Gómez</td>
+                    <td>123456</td>
+                    <td>Consultorio 05</td>
+                    <td>Cardiología, Medicina Interna</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-outline-primary me-2" data-bs-toggle="modal"
+                            data-bs-target="#doctorModal">
+                            Editar
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- MODAL (Agregar / Editar Doctor) -->
+<div class="modal fade" id="doctorModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Información del Doctor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Nombre Completo</label>
+                        <input type="text" class="form-control" placeholder="Ej. Dr. Jorge Salinas">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">CMP</label>
+                        <input type="text" class="form-control" placeholder="Ej. 789012">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Consultorio</label>
+                        <input type="text" class="form-control" placeholder="Ej. Consultorio 08">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Especialidades</label>
+                        <select class="form-select" multiple>
+                            <option>Cardiología</option>
+                            <option>Neurología</option>
+                            <option>Dermatología</option>
+                            <option>Pediatría</option>
+                            <option>Ginecología</option>
+                        </select>
+                        <small class="text-muted">Puedes seleccionar varias</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btnbrown px-4">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

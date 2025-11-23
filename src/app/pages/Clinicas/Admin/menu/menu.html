@@ -1,1 +1,55 @@
-<p>menu works!</p>
+<app-navbar></app-navbar>
+<div class="container mt-5">
+    <!-- ENCABEZADO -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-secondary">Panel del Administrador</h2>
+        <p class="text-muted">Bienvenido. Selecciona una opción para gestionar la clínica.</p>
+    </div>
+    <!-- TARJETAS -->
+    <div class="row g-4 justify-content-center">
+        <!-- DOCTORES -->
+        <div class="col-md-4">
+            <div class="card shadow-sm card-hover h-100 text-center p-3">
+                <div class="card-body">
+                    <i class="bi bi-person-badge fs-1 text-brown mb-3"></i>
+                    <h5 class="fw-bold mb-2">Gestión de Doctores</h5>
+                    <p class="text-muted">Agrega, edita y administra el personal médico.</p>
+                    <a class="btn btnbrown mt-2 px-3" routerLink="/admin/gestiondoctores">Entrar</a>
+                </div>
+            </div>
+        </div>
+        <!-- RECEPCIONISTAS -->
+        <div class="col-md-4">
+            <div class="card shadow-sm card-hover h-100 text-center p-3">
+                <div class="card-body">
+                    <i class="bi bi-people fs-1 text-brown mb-3"></i>
+                    <h5 class="fw-bold mb-2">Gestión de Recepcionistas</h5>
+                    <p class="text-muted">Controla las cuentas y funciones del personal administrativo.</p>
+                    <a class="btn btnbrown mt-2 px-3" routerLink="/admin/gestionrecepcionistas">Entrar</a>
+                </div>
+            </div>
+        </div>
+        <!-- INFO CLÍNICA -->
+        <div class="col-md-4">
+            <div class="card shadow-sm card-hover h-100 text-center p-3">
+                <div class="card-body">
+                    <i class="bi bi-hospital fs-1 text-brown mb-3"></i>
+                    <h5 class="fw-bold mb-2">Información de la Clínica</h5>
+                    <p class="text-muted">Actualiza datos y configuraciones de la clínica.</p>
+                    <a class="btn btnbrown mt-2 px-3" routerLink="/admin/InfoClinica">Entrar</a>
+                </div>
+            </div>
+        </div>
+        <!-- Gestion Usuarios -->
+        <div class="col-md-4">
+            <div class="card shadow-sm card-hover h-100 text-center p-3">
+                <div class="card-body">
+                    <i class="bi bi-lock fs-1 text-brown mb-3"></i>
+                    <h5 class="fw-bold mb-2">Gestion de Usuarios</h5>
+                    <p class="text-muted">Actualiza contraseñas y roles para tus empleados</p>
+                    <a class="btn btnbrown mt-2 px-3" routerLink="#">Entrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
