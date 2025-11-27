@@ -38,7 +38,7 @@
             <div class="row g-3">
                 <div class="col-md-3">
                     <label class="form-label fw-semibold">Doctor:</label>
-                    <select class="form-select">
+                    <select class="form-select" [(ngModel)]="filtroDoctor">
                         <option value="">Todos</option>
                         <option>Dr. Ricardo Gómez</option>
                         <option>Dra. Ana Salinas</option>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-semibold">Especialidad:</label>
-                    <select class="form-select">
+                    <select class="form-select" [(ngModel)]="filtroEsp">
                         <option value="">Todas</option>
                         <option>Cardiología</option>
                         <option>Pediatría</option>
@@ -54,10 +54,11 @@
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-semibold">Buscar Paciente:</label>
-                    <input type="text" class="form-control" placeholder="Nombre del paciente">
+                    <input type="text" class="form-control" placeholder="Nombre del paciente"
+                        [(ngModel)]="filtroPaciente">
                 </div>
                 <div class="col-md-3 d-flex align-items-end">
-                    <button class="btn btnbrown w-100">Aplicar Filtros</button>
+                    <button class="btn btnbrown w-100" (click)="aplicarFiltros()">Aplicar Filtros</button>
                 </div>
             </div>
         </div>
@@ -92,7 +93,7 @@
                                 data-bs-target="#detallesModal">Detalles</button>
                             <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
                                 data-bs-target="#reprogramarCitaModal">Reprogramar</button>
-                            <button class="btn btn-sm btn-outline-danger">Cancelar</button>
+                            <button class="btn btn-sm btn-outline-danger" (click)="cancelarCita()">Cancelar</button>
                         </td>
                     </tr>
                 </tbody>
@@ -171,42 +172,44 @@
 </div>
 
 <!-- MODAL: REPROGRAMAR CITA (ESTÁTICO) -->
-<div class="modal fade" id="reprogramarCitaModal" tabindex="-1" aria-labelledby="reprogramarCitaLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content shadow-lg border-0">
+<div class="modal fade" id="reprogramarCitaModal" tabindex="-1" aria-labelledby="reprogramarCitaLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0">
 
-      <!-- HEADER -->
-      <div class="modal-header" style="background:#4f3c3b; color:white;">
-        <h5 class="modal-title fw-semibold" id="reprogramarCitaLabel">Reprogramar Cita</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+            <!-- HEADER -->
+            <div class="modal-header" style="background:#4f3c3b; color:white;">
+                <h5 class="modal-title fw-semibold" id="reprogramarCitaLabel">Reprogramar Cita</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
 
-      <!-- BODY -->
-      <div class="modal-body">
+            <!-- BODY -->
+            <div class="modal-body">
 
-        <!-- NUEVA FECHA -->
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Nueva Fecha</label>
-          <input type="date" class="form-control">
+                <!-- NUEVA FECHA -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Nueva Fecha</label>
+                    <input type="date" class="form-control">
+                </div>
+                <!-- HORAS -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-semibold">Hora Inicio</label>
+                        <input type="time" class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-semibold">Hora Fin</label>
+                        <input type="time" class="form-control">
+                    </div>
+                </div>
+
+                <!-- FOOTER -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btnbrown" (click)="guardarReprogramacion()">Guardar Cambios</button>
+                </div>
+
+            </div>
         </div>
-        <!-- HORAS -->
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label class="form-label fw-semibold">Hora Inicio</label>
-            <input type="time" class="form-control">
-          </div>
-          <div class="col-md-6 mb-3">
-            <label class="form-label fw-semibold">Hora Fin</label>
-            <input type="time" class="form-control">
-          </div>
-        </div>
-
-      <!-- FOOTER -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btnbrown">Guardar Cambios</button>
-      </div>
-
     </div>
-  </div>
-</div>
