@@ -1,0 +1,165 @@
+<div class="resenas-container">
+  <!-- Header -->
+  <div class="header">
+    <h1>Reseñas de Nuestros Servicios</h1>
+    <p class="subtitle">Conoce la experiencia de nuestros usuarios</p>
+    <button class="btn-escribir-resena" (click)="toggleFormulario()">
+      ✍️ Escribir una reseña
+    </button>
+  </div>
+
+  <!-- Estadísticas -->
+  <div class="estadisticas-container">
+    <div class="promedio-general">
+      <div class="numero-promedio">{{ estadisticas.promedio }}</div>
+      <div class="estrellas-promedio">
+        <span *ngFor="let estrella of obtenerEstrellas(Math.round(estadisticas.promedio))">
+          {{ estrella }}
+        </span>
+      </div>
+      <div class="total-resenas">{{ estadisticas.total }} reseñas</div>
+    </div>
+
+    <div class="distribucion-estrellas">
+      <div class="barra-estrella" *ngFor="let num of [5, 4, 3, 2, 1]">
+        <span class="label-estrella">{{ num }} ⭐</span>
+        <div class="barra-progreso">
+          <div 
+            class="barra-relleno" 
+            [style.width.%]="obtenerPorcentaje(estadisticas[num === 5 ? 'cinco_estrellas' : num === 4 ? 'cuatro_estrellas' : num === 3 ? 'tres_estrellas' : num === 2 ? 'dos_estrellas' : 'una_estrella'])">
+          </div>
+        </div>
+        <span class="porcentaje">
+          {{ obtenerPorcentaje(estadisticas[num === 5 ? 'cinco_estrellas' : num === 4 ? 'cuatro_estrellas' : num === 3 ? 'tres_estrellas' : num === 2 ? 'dos_estrellas' : 'una_estrella']) }}%
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario de Nueva Reseña -->
+  <div class="formulario-resena" *ngIf="mostrarFormulario">
+    <div class="form-header">
+      <h2>Escribe tu reseña</h2>
+      <button class="btn-cerrar" (click)="toggleFormulario()">✕</button>
+    </div>
+
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <div class="success-message" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+
+    <div class="form-group">
+      <label>Tu nombre *</label>
+      <input 
+        type="text" 
+        [(ngModel)]="nuevaResena.nombre_usuario" 
+        placeholder="Ingresa tu nombre"
+        [disabled]="loading">
+    </div>
+
+    <div class="form-group">
+      <label>Calificación *</label>
+      <div class="selector-estrellas">
+        <button 
+          *ngFor="let num of [1, 2, 3, 4, 5]" 
+          type="button"
+          class="btn-estrella"
+          (click)="seleccionarCalificacion(num)"
+          [disabled]="loading">
+          {{ num <= nuevaResena.calificacion ? '⭐' : '☆' }}
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Tu comentario *</label>
+      <textarea 
+        [(ngModel)]="nuevaResena.comentario" 
+        placeholder="Comparte tu experiencia con nuestro servicio..."
+        rows="5"
+        [disabled]="loading">
+      </textarea>
+      <div class="contador-caracteres">
+        {{ nuevaResena.comentario.length }} caracteres (mínimo 10)
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        class="btn btn-secondary" 
+        (click)="toggleFormulario()"
+        [disabled]="loading">
+        Cancelar
+      </button>
+      <button 
+        class="btn btn-primary" 
+        (click)="enviarResena()"
+        [disabled]="loading">
+        {{ loading ? 'Enviando...' : 'Enviar reseña' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Filtros y Ordenamiento -->
+  <div class="filtros-container">
+    <div class="filtro">
+      <label>Filtrar por calificación:</label>
+      <select [(ngModel)]="filtroCalificacion" (change)="aplicarFiltros()">
+        <option [value]="0">Todas</option>
+        <option [value]="5">5 estrellas</option>
+        <option [value]="4">4 estrellas</option>
+        <option [value]="3">3 estrellas</option>
+        <option [value]="2">2 estrellas</option>
+        <option [value]="1">1 estrella</option>
+      </select>
+    </div>
+
+    <div class="filtro">
+      <label>Ordenar por:</label>
+      <select [(ngModel)]="ordenamiento" (change)="aplicarFiltros()">
+        <option value="recientes">Más recientes</option>
+        <option value="antiguos">Más antiguos</option>
+        <option value="mejor">Mejor calificación</option>
+        <option value="peor">Menor calificación</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="loading && !mostrarFormulario">
+    Cargando reseñas...
+  </div>
+
+  <!-- Lista de Reseñas -->
+  <div class="resenas-lista">
+    <div class="resena-card" *ngFor="let resena of resenas">
+      <div class="resena-header">
+        <div class="avatar">
+          {{ resena.nombre_usuario.charAt(0).toUpperCase() }}
+        </div>
+        <div class="resena-info">
+          <h3>{{ resena.nombre_usuario }}</h3>
+          <div class="resena-meta">
+            <div class="estrellas">
+              <span *ngFor="let estrella of obtenerEstrellas(resena.calificacion)">
+                {{ estrella }}
+              </span>
+            </div>
+            <span class="fecha">{{ formatearFecha(resena.fecha) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="resena-contenido">
+        <p>{{ resena.comentario }}</p>
+      </div>
+    </div>
+
+    <div class="sin-resenas" *ngIf="resenas.length === 0 && !loading">
+      <p>No hay reseñas que mostrar</p>
+    </div>
+  </div>
+</div>
