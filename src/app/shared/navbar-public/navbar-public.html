@@ -1,0 +1,35 @@
+<nav class="navbar-public">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <a routerLink="/nosotros" class="logo">
+        <span class="logo-icon">🏥</span>
+        <span class="logo-text">Gestión<strong>Citas</strong></span>
+      </a>
+    </div>
+
+    <button class="menu-toggle" (click)="toggleMenu()" [class.active]="menuAbierto">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="navbar-menu" [class.active]="menuAbierto">
+      <a routerLink="/nosotros" routerLinkActive="active" (click)="cerrarMenu()">
+        <span class="menu-icon">🏠</span>
+        <span>Nosotros</span>
+      </a>
+      <a routerLink="/resenas" routerLinkActive="active" (click)="cerrarMenu()">
+        <span class="menu-icon">⭐</span>
+        <span>Reseñas</span>
+      </a>
+      <a routerLink="/adquirir-servicio" routerLinkActive="active" (click)="cerrarMenu()">
+        <span class="menu-icon">💼</span>
+        <span>Adquirir Servicio</span>
+      </a>
+      <a routerLink="/login" routerLinkActive="active" class="btn-login" (click)="cerrarMenu()">
+        <span class="menu-icon">🔐</span>
+        <span>Iniciar Sesión</span>
+      </a>
+    </div>
+  </div>
+</nav>

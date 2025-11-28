@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ResenaService } from '../../services/resena.service';
 import { Resena } from '../../models/resena.model';
+import { NavbarPublicComponent } from '../../shared/navbar-public/navbar-public';
 
 @Component({
   selector: 'app-resenas',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NavbarPublicComponent],
   templateUrl: './resenas.html',
   styleUrls: ['./resenas.css']
 })

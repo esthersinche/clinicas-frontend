@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,11 +6,12 @@ import { ClinicaService } from '../../../services/clinica.service';
 import { AuthService } from '../../../services/auth.service';
 import { Clinica } from '../../../models/clinica.model';
 import { Usuario } from '../../../models/empleado.model';
+import { NavbarPublicComponent } from '../../../shared/navbar-public/navbar-public';
 
 @Component({
   selector: 'app-adquirir-servicio',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NavbarPublicComponent],
   templateUrl: './adquirir-servicio.html',
   styleUrls: ['./adquirir-servicio.css']
 })
@@ -62,6 +63,13 @@ export class AdquirirServicioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any): void {
+    if (this.paso > 1 && this.paso < 4) {
+      $event.returnValue = true;
+    }
+  }
 
   siguientePaso(): void {
     if (this.validarPasoActual()) {
