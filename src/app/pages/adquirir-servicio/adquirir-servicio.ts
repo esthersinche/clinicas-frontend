@@ -2,11 +2,11 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ClinicaService } from '../../../services/clinica.service';
-import { AuthService } from '../../../services/auth.service';
-import { Clinica } from '../../../models/clinica.model';
-import { Usuario } from '../../../models/empleado.model';
-import { NavbarPublicComponent } from '../../../shared/navbar-public/navbar-public';
+import { ClinicaService } from '../../services/clinica.service';
+import { AuthService } from '../../services/auth.service';
+import { Clinica } from '../../models/clinica.model';
+import { Usuario } from '../../models/empleado.model';
+import { NavbarPublicComponent } from '../../shared/navbar-public/navbar-public';
 
 @Component({
   selector: 'app-adquirir-servicio',

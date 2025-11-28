@@ -13,6 +13,8 @@ import { NavbarPublicComponent } from '../../shared/navbar-public/navbar-public'
   styleUrls: ['./resenas.css']
 })
 export class ResenasComponent implements OnInit {
+  Math = Math;
+
   resenas: Resena[] = [];
   resenasAprobadas: Resena[] = [];
   mostrarFormulario: boolean = false;
