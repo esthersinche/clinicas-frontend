@@ -12,6 +12,8 @@ import { Resena } from '../../models/resena.model';
   styleUrls: ['./resenas.css']
 })
 export class ResenasComponent implements OnInit {
+  Math = Math;
+
   resenas: Resena[] = [];
   resenasAprobadas: Resena[] = [];
   mostrarFormulario: boolean = false;

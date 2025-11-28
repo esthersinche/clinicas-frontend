@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ClinicaService } from '../../../services/clinica.service';
-import { AuthService } from '../../../services/auth.service';
-import { Clinica } from '../../../models/clinica.model';
-import { Usuario } from '../../../models/empleado.model';
+import { ClinicaService } from '../../services/clinica.service';
+import { AuthService } from '../../services/auth.service';
+import { Clinica } from '../../models/clinica.model';
+import { Usuario } from '../../models/empleado.model';
 
 @Component({
   selector: 'app-adquirir-servicio',
