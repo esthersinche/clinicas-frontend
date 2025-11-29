@@ -3,6 +3,8 @@
   margin: 50px auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #F2E9E4;
+  min-height: 100vh;
 }
 
 .header {
@@ -51,12 +53,12 @@
 }
 
 .step.active .step-number {
-  background: #c8a2d0;
+  background: #C9ADA7;
   color: white;
 }
 
 .step.completed .step-number {
-  background: #80d4c8;
+  background: #9a8c98;
   color: white;
 }
 
@@ -67,7 +69,7 @@
 }
 
 .step.active .step-label {
-  color: #c8a2d0;
+  color: #C9ADA7;
   font-weight: 600;
 }
 
@@ -80,7 +82,7 @@
 }
 
 .step-line.active {
-  background: #80d4c8;
+  background: #9a8c98;
 }
 
 /* Form Container */
@@ -120,7 +122,7 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #c8a2d0;
+  border-color: #C9ADA7;
 }
 
 .form-row {
@@ -178,14 +180,14 @@
 }
 
 .payment-method:hover {
-  border-color: #c8a2d0;
+  border-color: #C9ADA7;
   transform: translateY(-2px);
 }
 
 .payment-method.active {
-  border-color: #c8a2d0;
-  background: #f8f4fa;
-  color: #c8a2d0;
+  border-color: #C9ADA7;
+  background: #F2E9E4;
+  color: #4a4e69;
 }
 
 /* Payment Form */
@@ -208,7 +210,7 @@
 
 /* Pricing Info */
 .pricing-info {
-  background: linear-gradient(135deg, #c8a2d0 0%, #80d4c8 100%);
+  background: linear-gradient(135deg, #C9ADA7 0%, #9a8c98 100%);
   padding: 25px;
   border-radius: 12px;
   margin-top: 30px;
@@ -276,25 +278,25 @@
 }
 
 .btn-primary {
-  background: #c8a2d0;
+  background: #4a4e69;
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #b88fc5;
+  background: #22223B;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(200, 162, 208, 0.3);
+  box-shadow: 0 4px 8px rgba(74, 78, 105, 0.3);
 }
 
 .btn-success {
-  background: #80d4c8;
+  background: #9a8c98;
   color: white;
 }
 
 .btn-success:hover:not(:disabled) {
-  background: #6ac4b8;
+  background: #C9ADA7;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(128, 212, 200, 0.3);
+  box-shadow: 0 4px 8px rgba(154, 140, 152, 0.3);
 }
 
 /* Responsive */
