@@ -13,10 +13,9 @@
   <!-- Estadísticas -->
   <div class="estadisticas-container">
     <div class="promedio-general">
-      <div class="numero-promedio">{{ estadisticas.promedio }}</div>
+      <div class="numero-promedio">{{ estadisticas.promedio.toFixed(1) }}</div>
       <div class="estrellas-promedio">
-        <span *ngFor="let estrella of obtenerEstrellas(Math.round(estadisticas.promedio))">
-          {{ estrella }}
+        <span *ngFor="let estrella of obtenerEstrellas(estadisticas.promedio)" [innerHTML]="estrella ? '⭐' : '☆'">
         </span>
       </div>
       <div class="total-resenas">{{ estadisticas.total }} reseñas</div>
@@ -28,11 +27,11 @@
         <div class="barra-progreso">
           <div 
             class="barra-relleno" 
-            [style.width.%]="obtenerPorcentaje(estadisticas[num === 5 ? 'cinco_estrellas' : num === 4 ? 'cuatro_estrellas' : num === 3 ? 'tres_estrellas' : num === 2 ? 'dos_estrellas' : 'una_estrella'])">
+            [style.width.%]="obtenerPorcentaje(num)">
           </div>
         </div>
         <span class="porcentaje">
-          {{ obtenerPorcentaje(estadisticas[num === 5 ? 'cinco_estrellas' : num === 4 ? 'cuatro_estrellas' : num === 3 ? 'tres_estrellas' : num === 2 ? 'dos_estrellas' : 'una_estrella']) }}%
+          {{ obtenerPorcentaje(num).toFixed(0) }}%
         </span>
       </div>
     </div>
@@ -45,21 +44,13 @@
       <button class="btn-cerrar" (click)="toggleFormulario()">✕</button>
     </div>
 
-    <div class="error-message" *ngIf="errorMessage">
-      {{ errorMessage }}
-    </div>
-
-    <div class="success-message" *ngIf="successMessage">
-      {{ successMessage }}
-    </div>
-
     <div class="form-group">
       <label>Tu nombre *</label>
       <input 
         type="text" 
         [(ngModel)]="nuevaResena.nombre_usuario" 
         placeholder="Ingresa tu nombre"
-        [disabled]="loading">
+        [disabled]="enviandoResena">
     </div>
 
     <div class="form-group">
@@ -70,7 +61,7 @@
           type="button"
           class="btn-estrella"
           (click)="seleccionarCalificacion(num)"
-          [disabled]="loading">
+          [disabled]="enviandoResena">
           {{ num <= nuevaResena.calificacion ? '⭐' : '☆' }}
         </button>
       </div>
@@ -82,7 +73,7 @@
         [(ngModel)]="nuevaResena.comentario" 
         placeholder="Comparte tu experiencia con nuestro servicio..."
         rows="5"
-        [disabled]="loading">
+        [disabled]="enviandoResena">
       </textarea>
       <div class="contador-caracteres">
         {{ nuevaResena.comentario.length }} caracteres (mínimo 10)
@@ -93,14 +84,14 @@
       <button 
         class="btn btn-secondary" 
         (click)="toggleFormulario()"
-        [disabled]="loading">
+        [disabled]="enviandoResena">
         Cancelar
       </button>
       <button 
         class="btn btn-primary" 
         (click)="enviarResena()"
-        [disabled]="loading">
-        {{ loading ? 'Enviando...' : 'Enviar reseña' }}
+        [disabled]="enviandoResena">
+        {{ enviandoResena ? 'Enviando...' : 'Enviar reseña' }}
       </button>
     </div>
   </div>
@@ -122,22 +113,17 @@
     <div class="filtro">
       <label>Ordenar por:</label>
       <select [(ngModel)]="ordenamiento" (change)="aplicarFiltros()">
-        <option value="recientes">Más recientes</option>
-        <option value="antiguos">Más antiguos</option>
+        <option value="reciente">Más recientes</option>
+        <option value="antigua">Más antiguos</option>
         <option value="mejor">Mejor calificación</option>
         <option value="peor">Menor calificación</option>
       </select>
     </div>
   </div>
 
-  <!-- Loading -->
-  <div class="loading" *ngIf="loading && !mostrarFormulario">
-    Cargando reseñas...
-  </div>
-
   <!-- Lista de Reseñas -->
   <div class="resenas-lista">
-    <div class="resena-card" *ngFor="let resena of resenas">
+    <div class="resena-card" *ngFor="let resena of resenasFiltradas">
       <div class="resena-header">
         <div class="avatar">
           {{ resena.nombre_usuario.charAt(0).toUpperCase() }}
@@ -146,8 +132,7 @@
           <h3>{{ resena.nombre_usuario }}</h3>
           <div class="resena-meta">
             <div class="estrellas">
-              <span *ngFor="let estrella of obtenerEstrellas(resena.calificacion)">
-                {{ estrella }}
+              <span *ngFor="let estrella of obtenerEstrellas(resena.calificacion)" [innerHTML]="estrella ? '⭐' : '☆'">
               </span>
             </div>
             <span class="fecha">{{ formatearFecha(resena.fecha) }}</span>
@@ -160,7 +145,7 @@
       </div>
     </div>
 
-    <div class="sin-resenas" *ngIf="resenas.length === 0 && !loading">
+    <div class="sin-resenas" *ngIf="resenasFiltradas.length === 0">
       <p>No hay reseñas que mostrar</p>
     </div>
   </div>
