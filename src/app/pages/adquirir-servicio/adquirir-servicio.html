@@ -1,0 +1,281 @@
+<app-navbar-public></app-navbar-public>
+
+<div class="adquirir-servicio-container">
+  <div class="header">
+    <h1>Adquirir Servicio de Gestión de Citas</h1>
+    <p class="subtitle">Configure su clínica en pocos pasos</p>
+  </div>
+
+  <!-- Indicador de pasos -->
+  <div class="stepper">
+    <div class="step" [class.active]="paso >= 1" [class.completed]="paso > 1">
+      <div class="step-number">1</div>
+      <div class="step-label">Datos Admin</div>
+    </div>
+    <div class="step-line" [class.active]="paso > 1"></div>
+    
+    <div class="step" [class.active]="paso >= 2" [class.completed]="paso > 2">
+      <div class="step-number">2</div>
+      <div class="step-label">Credenciales</div>
+    </div>
+    <div class="step-line" [class.active]="paso > 2"></div>
+    
+    <div class="step" [class.active]="paso >= 3" [class.completed]="paso > 3">
+      <div class="step-number">3</div>
+      <div class="step-label">Clínica</div>
+    </div>
+    <div class="step-line" [class.active]="paso > 3"></div>
+    
+    <div class="step" [class.active]="paso >= 4" [class.completed]="paso > 4">
+      <div class="step-number">4</div>
+      <div class="step-label">Pago</div>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <!-- Error message -->
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Paso 1: Datos del Administrador -->
+    <div class="form-step" *ngIf="paso === 1">
+      <h2>Datos del Administrador</h2>
+      
+      <div class="form-group">
+        <label>Nombres *</label>
+        <input type="text" [(ngModel)]="admin.nombres" placeholder="Ingrese sus nombres">
+      </div>
+
+      <div class="form-group">
+        <label>Apellidos *</label>
+        <input type="text" [(ngModel)]="admin.apellidos" placeholder="Ingrese sus apellidos">
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono *</label>
+        <input type="tel" [(ngModel)]="admin.telefono" placeholder="999 999 999">
+      </div>
+
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" [(ngModel)]="admin.email" placeholder="correo@ejemplo.com">
+      </div>
+    </div>
+
+    <!-- Paso 2: Credenciales -->
+    <div class="form-step" *ngIf="paso === 2">
+      <h2>Crear Credenciales de Acceso</h2>
+      
+      <div class="form-group">
+        <label>Nombre de Usuario *</label>
+        <input type="text" [(ngModel)]="admin.username" placeholder="usuario">
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña *</label>
+        <div class="password-input">
+          <input 
+            [type]="mostrarPassword ? 'text' : 'password'" 
+            [(ngModel)]="admin.password" 
+            placeholder="Mínimo 6 caracteres">
+          <button type="button" class="toggle-password" (click)="togglePassword()">
+            {{ mostrarPassword ? '👁️' : '👁️‍🗨️' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Confirmar Contraseña *</label>
+        <input 
+          [type]="mostrarPassword ? 'text' : 'password'" 
+          [(ngModel)]="admin.confirmarPassword" 
+          placeholder="Repita su contraseña">
+      </div>
+    </div>
+
+    <!-- Paso 3: Datos de la Clínica -->
+    <div class="form-step" *ngIf="paso === 3">
+      <h2>Datos de la Clínica</h2>
+      
+      <div class="form-group">
+        <label>Nombre de la Clínica *</label>
+        <input type="text" [(ngModel)]="clinica.nom_clie" placeholder="Clínica Ejemplo">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Avenida/Jirón *</label>
+          <input type="text" [(ngModel)]="clinica.dir_av" placeholder="Av. Principal">
+        </div>
+
+        <div class="form-group">
+          <label>Calle *</label>
+          <input type="text" [(ngModel)]="clinica.dir_calle" placeholder="Calle 123">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Número</label>
+        <input type="text" [(ngModel)]="clinica.dir_numero" placeholder="123">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Distrito *</label>
+          <input type="text" [(ngModel)]="clinica.distrito" placeholder="Distrito">
+        </div>
+
+        <div class="form-group">
+          <label>Provincia *</label>
+          <input type="text" [(ngModel)]="clinica.provincia" placeholder="Provincia">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Departamento *</label>
+        <input type="text" [(ngModel)]="clinica.departamento" placeholder="Departamento">
+      </div>
+    </div>
+
+    <!-- Paso 4: Método de Pago -->
+    <div class="form-step" *ngIf="paso === 4">
+      <h2>Método de Pago</h2>
+      
+      <div class="payment-methods">
+        <button 
+          type="button" 
+          class="payment-method" 
+          [class.active]="metodoPago.tipo === 'tarjeta'"
+          (click)="metodoPago.tipo = 'tarjeta'">
+          💳 Tarjeta
+        </button>
+        
+        <button 
+          type="button" 
+          class="payment-method" 
+          [class.active]="metodoPago.tipo === 'yape'"
+          (click)="metodoPago.tipo = 'yape'">
+          📱 Yape
+        </button>
+        
+        <button 
+          type="button" 
+          class="payment-method" 
+          [class.active]="metodoPago.tipo === 'plin'"
+          (click)="metodoPago.tipo = 'plin'">
+          💰 Plin
+        </button>
+        
+        <button 
+          type="button" 
+          class="payment-method" 
+          [class.active]="metodoPago.tipo === 'efectivo'"
+          (click)="metodoPago.tipo = 'efectivo'">
+          💵 Efectivo
+        </button>
+      </div>
+
+      <!-- Formulario Tarjeta -->
+      <div class="payment-form" *ngIf="metodoPago.tipo === 'tarjeta'">
+        <div class="form-group">
+          <label>Número de Tarjeta *</label>
+          <input 
+            type="text" 
+            [(ngModel)]="metodoPago.numeroTarjeta" 
+            (input)="formatearNumeroTarjeta()"
+            maxlength="19"
+            placeholder="1234 5678 9012 3456">
+        </div>
+
+        <div class="form-group">
+          <label>Nombre del Titular *</label>
+          <input type="text" [(ngModel)]="metodoPago.nombreTitular" placeholder="JUAN PEREZ">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Fecha de Expiración *</label>
+            <input type="text" [(ngModel)]="metodoPago.fechaExpiracion" placeholder="MM/AA" maxlength="5">
+          </div>
+
+          <div class="form-group">
+            <label>CVV *</label>
+            <input type="text" [(ngModel)]="metodoPago.cvv" placeholder="123" maxlength="4">
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulario Yape -->
+      <div class="payment-form" *ngIf="metodoPago.tipo === 'yape'">
+        <div class="form-group">
+          <label>Número de Celular Yape *</label>
+          <input type="tel" [(ngModel)]="metodoPago.numeroYape" placeholder="999 999 999">
+        </div>
+        <div class="info-box">
+          <p>Se generará un código QR para realizar el pago</p>
+        </div>
+      </div>
+
+      <!-- Formulario Plin -->
+      <div class="payment-form" *ngIf="metodoPago.tipo === 'plin'">
+        <div class="form-group">
+          <label>Número de Celular Plin *</label>
+          <input type="tel" [(ngModel)]="metodoPago.numeroPlin" placeholder="999 999 999">
+        </div>
+        <div class="info-box">
+          <p>Se generará un código QR para realizar el pago</p>
+        </div>
+      </div>
+
+      <!-- Formulario Efectivo -->
+      <div class="payment-form" *ngIf="metodoPago.tipo === 'efectivo'">
+        <div class="info-box">
+          <p>💵 El pago en efectivo se coordinará con nuestro equipo de ventas</p>
+          <p>Un representante se pondrá en contacto contigo para coordinar el pago</p>
+        </div>
+      </div>
+
+      <div class="pricing-info">
+        <h3>Plan Mensual</h3>
+        <p class="price">S/ 299.00 <span>/mes</span></p>
+        <ul>
+          <li>✓ Gestión ilimitada de citas</li>
+          <li>✓ Panel de administración completo</li>
+          <li>✓ Gestión de doctores y especialidades</li>
+          <li>✓ Soporte técnico 24/7</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Botones de navegación -->
+    <div class="form-actions">
+      <button 
+        type="button" 
+        class="btn btn-secondary" 
+        (click)="pasoAnterior()"
+        *ngIf="paso > 1"
+        [disabled]="loading">
+        Anterior
+      </button>
+
+      <button 
+        type="button" 
+        class="btn btn-primary" 
+        (click)="siguientePaso()"
+        *ngIf="paso < 4"
+        [disabled]="loading">
+        Siguiente
+      </button>
+
+      <button 
+        type="button" 
+        class="btn btn-success" 
+        (click)="finalizarRegistro()"
+        *ngIf="paso === 4"
+        [disabled]="loading">
+        {{ loading ? 'Procesando...' : 'Finalizar y Pagar' }}
+      </button>
+    </div>
+  </div>
+</div>

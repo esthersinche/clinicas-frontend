@@ -1,0 +1,31 @@
+<nav class="navbar-public">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <a routerLink="/nosotros" class="logo">
+        <i class="bi bi-hospital me-1"></i>
+        <span class="logo-text"><strong>MedU</strong></span>
+      </a>
+    </div>
+
+    <button class="menu-toggle" (click)="toggleMenu()" [class.active]="menuAbierto">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="navbar-menu" [class.active]="menuAbierto">
+      <a routerLink="/nosotros" routerLinkActive="active" (click)="cerrarMenu()">
+        <span>Nosotros</span>
+      </a>
+      <a routerLink="/resenas" routerLinkActive="active" (click)="cerrarMenu()">
+        <span>Reseñas</span>
+      </a>
+      <a routerLink="/adquirir-servicio" routerLinkActive="active" (click)="cerrarMenu()">
+        <span>Adquirir Servicio</span>
+      </a>
+      <a routerLink="/login" routerLinkActive="active" class="btn-login" (click)="cerrarMenu()">
+        <span>Iniciar Sesión</span>
+      </a>
+    </div>
+  </div>
+</nav>
