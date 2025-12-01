@@ -7,20 +7,23 @@ import { Cita } from '../models/cita.model';
   providedIn: 'root'
 })
 export class CitaService {
-  private apiUrl = 'http://localhost:8080/api/citas';
+
+  private apiUrl = 'http://localhost:8080/api/v1/Cita';
 
   constructor(private http: HttpClient) { }
 
+  crearCita(cita: Cita): Observable<any> {
+    return this.http.post(this.apiUrl, cita);
+  }
+
+
+  /*
   obtenerCitas(): Observable<Cita[]> {
     return this.http.get<Cita[]>(this.apiUrl);
   }
 
   obtenerCitaPorId(id: number): Observable<Cita> {
     return this.http.get<Cita>(`${this.apiUrl}/${id}`);
-  }
-
-  crearCita(cita: Cita): Observable<Cita> {
-    return this.http.post<Cita>(this.apiUrl, cita);
   }
 
   actualizarCita(id: number, cita: Cita): Observable<Cita> {
@@ -42,4 +45,5 @@ export class CitaService {
   obtenerCitasPorEspecialidad(especialidadId: number): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/especialidad/${especialidadId}`);
   }
+  */
 }
