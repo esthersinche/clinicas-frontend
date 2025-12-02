@@ -82,19 +82,9 @@ export class DashboardRecep implements OnInit {
     }
   }
 
-  guardarReprogramacion(citaId: string, nuevoInicio: string, nuevoFin: string): void {
-    this.citaService.modificarHorarioCita(citaId, {
-      inicio: nuevoInicio,
-      fin: nuevoFin
-    }).subscribe({
-      next: () => {
-        alert('Cita reprogramada exitosamente');
-        this.cargarCitas();
-      },
-      error: (err) => {
-        alert('Error al reprogramar la cita');
-        console.error('Error:', err);
-      }
-    });
+  guardarReprogramacion(): void {
+    // Función temporal simplificada
+    // TODO: Implementar con datos reales del modal cuando esté conectado
+    alert('Función de reprogramación en desarrollo. Requiere conectar el modal con los datos de la cita.');
   }
 }
