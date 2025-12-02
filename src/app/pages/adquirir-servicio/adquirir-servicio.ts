@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { ClinicaService } from '../../services/clinica.service';
 import { AuthService } from '../../services/auth.service';
 import { Clinica } from '../../models/clinica.model';
-import { Usuario } from '../../models/empleado.model';
 import { NavbarPublicComponent } from '../../shared/navbar-public/navbar-public';
 
 @Component({
@@ -179,27 +178,24 @@ export class AdquirirServicioComponent implements OnInit {
     this.errorMessage = '';
 
     try {
-      // 1. Crear la clínica
-      const clinicaCreada = await this.clinicaService.crearClinica(this.clinica).toPromise();
+      // 1. Crear la clínica (cuando esté implementado en el backend)
+      // const clinicaCreada = await this.clinicaService.crearClinica(this.clinica).toPromise();
       
-      if (clinicaCreada) {
-        // 2. Crear el usuario administrador
-        const nuevoUsuario: Usuario = {
-          id_emp: 0,
-          username: this.admin.username,
-          pass: this.admin.password,
-          rol_emp: 'ADMINISTRADOR',
-          id_cli: clinicaCreada.id_cli,
-          id_esp: 0
-        };
+      // Por ahora solo registrar usuario con datos temporales
+      const requestRegistro = {
+        username: this.admin.username,
+        password: this.admin.password,
+        empleadoId: "temp-" + Date.now() // Temporal hasta que se implemente empleados
+      };
 
-        const usuarioCreado = await this.authService.registrarUsuario(nuevoUsuario).toPromise();
-        
-        if (usuarioCreado) {
-          // 3. Redirigir al panel de administrador
-          alert('¡Registro exitoso! Bienvenido al sistema.');
-          this.router.navigate(['/admin/menu']);
-        }
+      const resultado = await this.authService.registrar(requestRegistro).toPromise();
+      
+      if (resultado) {
+        alert('¡Registro exitoso! Bienvenido al sistema.');
+        this.authService.guardarToken(resultado.token);
+        localStorage.setItem('username', resultado.username);
+        localStorage.setItem('rol', resultado.rol);
+        this.router.navigate(['/admin/menu']);
       }
     } catch (error: any) {
       this.errorMessage = error.error?.message || 'Error al procesar el registro. Por favor intente nuevamente.';

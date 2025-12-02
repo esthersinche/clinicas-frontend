@@ -1,49 +1,38 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Cita } from '../models/cita.model';
+import { Cita, CrearCitaRequest, ModificarCitaRequest } from '../models/cita.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CitaService {
-
-  private apiUrl = 'http://localhost:8080/api/v1/Cita';
+  private apiUrl = 'http://localhost:8080/api/v1/cita';
 
   constructor(private http: HttpClient) { }
 
-  crearCita(cita: Cita): Observable<any> {
-    return this.http.post(this.apiUrl, cita);
+  // Crear nueva cita
+  crearCita(request: CrearCitaRequest): Observable<Cita> {
+    return this.http.post<Cita>(this.apiUrl, request);
   }
 
-
-  /*
-  obtenerCitas(): Observable<Cita[]> {
-    return this.http.get<Cita[]>(this.apiUrl);
-  }
-
-  obtenerCitaPorId(id: number): Observable<Cita> {
+  // Obtener cita por ID
+  obtenerCitaPorId(id: string): Observable<Cita> {
     return this.http.get<Cita>(`${this.apiUrl}/${id}`);
   }
 
-  actualizarCita(id: number, cita: Cita): Observable<Cita> {
-    return this.http.put<Cita>(`${this.apiUrl}/${id}`, cita);
+  // Obtener citas por doctor
+  obtenerCitasPorDoctor(idDoctor: string): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.apiUrl}/doctor/${idDoctor}`);
   }
 
-  cancelarCita(id: number): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}/cancelar`, {});
+  // Modificar horario de cita
+  modificarHorarioCita(id: string, request: ModificarCitaRequest): Observable<Cita> {
+    return this.http.put<Cita>(`${this.apiUrl}/${id}`, request);
   }
 
-  obtenerCitasPorDoctor(doctorId: number): Observable<Cita[]> {
-    return this.http.get<Cita[]>(`${this.apiUrl}/doctor/${doctorId}`);
+  // Cancelar cita
+  cancelarCita(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
-
-  obtenerCitasPorPaciente(pacienteId: number): Observable<Cita[]> {
-    return this.http.get<Cita[]>(`${this.apiUrl}/paciente/${pacienteId}`);
-  }
-
-  obtenerCitasPorEspecialidad(especialidadId: number): Observable<Cita[]> {
-    return this.http.get<Cita[]>(`${this.apiUrl}/especialidad/${especialidadId}`);
-  }
-  */
 }

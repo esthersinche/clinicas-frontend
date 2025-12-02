@@ -2,21 +2,36 @@
   <div class="login-card p-5 shadow rounded">
     <h2 class="fw-bold text-center mb-4 text-dark">Iniciar Sesión</h2>
 
+    <div class="alert alert-danger" *ngIf="error">
+      <i class="bi bi-exclamation-triangle"></i> {{ error }}
+    </div>
+
     <form (ngSubmit)="onLogin()">
       <div class="mb-3">
         <label for="email" class="form-label fw-semibold">Usuario</label>
-        <input type="text" id="email" class="form-control form-control-lg" placeholder="Ingresa tu User de empleado"
-          [(ngModel)]="username" name="username" required />
+        <input type="text" id="email" class="form-control form-control-lg" 
+          placeholder="Ingresa tu User de empleado"
+          [(ngModel)]="username" 
+          name="username" 
+          required 
+          [disabled]="cargando" />
       </div>
 
       <div class="mb-4">
         <label for="password" class="form-label fw-semibold">Contraseña</label>
-        <input type="password" id="password" class="form-control form-control-lg" placeholder="••••••••"
-          [(ngModel)]="password" name="password" required />
+        <input type="password" id="password" class="form-control form-control-lg" 
+          placeholder="••••••••"
+          [(ngModel)]="password" 
+          name="password" 
+          required 
+          [disabled]="cargando" />
       </div>
 
-      <button type="submit" class="btn btn-primary w-100 py-2">
-        Ingresar
+      <button type="submit" class="btn btn-primary w-100 py-2" [disabled]="cargando">
+        <span *ngIf="cargando">
+          <i class="bi bi-hourglass-split"></i> Ingresando...
+        </span>
+        <span *ngIf="!cargando">Ingresar</span>
       </button>
 
       <div class="text-center mt-3">

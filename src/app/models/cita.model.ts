@@ -1,16 +1,40 @@
 export interface Cita {
-  id_cita: number;
-  motivo_cita: string;
-  estado_cita: string;
-  canal_cita: string;
-  inicio_cita: Date;
-  fin_cita: Date;
-  pac_id: number;
-  doc_id: number;
-  nomb_com_pac: string;
-  dni_pac: string;
-  nombre_doc: string;
-  espe_doc: string;
-  consult_doc: string;
-  nom_espe: string;
+  id?: {
+    id: string;
+  };
+  motivo: string;
+  estado: 'PROGRAMADA' | 'CANCELADA' | 'COMPLETADA';
+  canal: 'PRESENCIAL' | 'VIRTUAL';
+  inicio: string;
+  fin: string;
+  paciente: {
+    nombre: string;
+    dni: string;
+  };
+  doctor: {
+    nombre: string;
+    especialidad: string;
+    consultorio: string;
+  };
+  clinica: string;
+  especialidad: string;
+}
+
+export interface CrearCitaRequest {
+  doc_info_cita: {
+    idDoctor: string;
+    nombreDoctor: string;
+    especialidad: string;
+  };
+  pac_info_cita: {
+    idPaciente: string;
+    nombrePaciente: string;
+  };
+  inicio: string;
+  fin: string;
+}
+
+export interface ModificarCitaRequest {
+  inicio: string;
+  fin: string;
 }

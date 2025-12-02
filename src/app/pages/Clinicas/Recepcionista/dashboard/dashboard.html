@@ -63,7 +63,15 @@
             </div>
         </div>
         <!-- TABLA -->
-        <div class="table-responsive shadow-sm">
+        <div class="alert alert-info" *ngIf="cargando">
+            <i class="bi bi-hourglass-split"></i> Cargando citas...
+        </div>
+
+        <div class="alert alert-danger" *ngIf="error">
+            {{ error }}
+        </div>
+
+        <div class="table-responsive shadow-sm" *ngIf="!cargando">
             <table class="table table-hover align-middle">
                 <thead class="table-light">
                     <tr>
@@ -78,22 +86,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Juan Pérez</td>
-                        <td>Dr. Ricardo Gómez</td>
-                        <td>Cardiología</td>
-                        <td>Presencial</td>
-                        <td>2025-01-28 08:30</td>
-                        <td>2025-01-28 09:00</td>
+                    <tr *ngFor="let cita of citasFiltradas">
+                        <td>{{ cita.paciente.nombre }}</td>
+                        <td>{{ cita.doctor.nombre }}</td>
+                        <td>{{ cita.especialidad }}</td>
+                        <td>{{ cita.canal }}</td>
+                        <td>{{ cita.inicio | date:'dd/MM/yyyy HH:mm' }}</td>
+                        <td>{{ cita.fin | date:'dd/MM/yyyy HH:mm' }}</td>
                         <td>
-                            <span class="badge bg-warning text-dark">Pendiente</span>
+                            <span class="badge" 
+                                [ngClass]="{
+                                    'bg-warning text-dark': cita.estado === 'PROGRAMADA',
+                                    'bg-success': cita.estado === 'COMPLETADA',
+                                    'bg-danger': cita.estado === 'CANCELADA'
+                                }">
+                                {{ cita.estado }}
+                            </span>
                         </td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-                                data-bs-target="#detallesModal">Detalles</button>
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-                                data-bs-target="#reprogramarCitaModal">Reprogramar</button>
-                            <button class="btn btn-sm btn-outline-danger" (click)="cancelarCita()">Cancelar</button>
+                            <button class="btn btn-sm btn-outline-danger" 
+                                (click)="cancelarCita(cita.id?.id || '')"
+                                *ngIf="cita.estado === 'PROGRAMADA'">
+                                Cancelar
+                            </button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="citasFiltradas.length === 0 && !cargando">
+                        <td colspan="8" class="text-center text-muted">
+                            No hay citas para mostrar
                         </td>
                     </tr>
                 </tbody>

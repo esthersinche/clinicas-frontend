@@ -9,49 +9,83 @@
     <div class="card shadow-sm p-4 mb-4">
         <h5 class="fw-bold text-secondary mb-3">Datos del Paciente</h5>
 
+        <div class="alert alert-success" *ngIf="exito">
+            <i class="bi bi-check-circle"></i> {{ exito }}
+        </div>
+
+        <div class="alert alert-danger" *ngIf="error">
+            <i class="bi bi-exclamation-triangle"></i> {{ error }}
+        </div>
+
         <div class="row g-3">
             <!-- Nombre Completo -->
             <div class="col-md-6">
-                <label class="form-label fw-semibold">Nombre Completo</label>
-                <input type="text" class="form-control" placeholder="Ej. Juan Pérez López">
+                <label class="form-label fw-semibold">Nombre Completo *</label>
+                <input type="text" class="form-control" 
+                    placeholder="Ej. Juan Pérez López"
+                    [(ngModel)]="paciente.nombre"
+                    [disabled]="guardando">
             </div>
             <!-- Nacionalidad -->
             <div class="col-md-6">
                 <label class="form-label fw-semibold">Nacionalidad</label>
-                <input type="text" class="form-control" placeholder="Ej. Peruana">
+                <input type="text" class="form-control" 
+                    placeholder="Ej. Peruana"
+                    [(ngModel)]="paciente.nacionalidad"
+                    [disabled]="guardando">
             </div>
             <!-- DNI -->
             <div class="col-md-4">
-                <label class="form-label fw-semibold">DNI</label>
-                <input type="text" class="form-control" placeholder="Ej. 74251839">
+                <label class="form-label fw-semibold">DNI *</label>
+                <input type="text" class="form-control" 
+                    placeholder="Ej. 74251839"
+                    [(ngModel)]="paciente.dni"
+                    maxlength="8"
+                    [disabled]="guardando">
             </div>
             <!-- Teléfono -->
             <div class="col-md-4">
                 <label class="form-label fw-semibold">Teléfono</label>
-                <input type="text" class="form-control" placeholder="Ej. 987654321">
+                <input type="text" class="form-control" 
+                    placeholder="Ej. 987654321"
+                    [(ngModel)]="paciente.tel"
+                    [disabled]="guardando">
             </div>
             <!-- Email -->
             <div class="col-md-4">
-                <label class="form-label fw-semibold">Correo Electrónico</label>
-                <input type="email" class="form-control" placeholder="Ej. paciente@gmail.com">
+                <label class="form-label fw-semibold">Correo Electrónico *</label>
+                <input type="email" class="form-control" 
+                    placeholder="Ej. paciente@gmail.com"
+                    [(ngModel)]="paciente.email"
+                    [disabled]="guardando">
             </div>
             <!-- Fec_nac -->
             <div class="col-md-4">
                 <label class="form-label fw-semibold">Fecha de nacimiento</label>
-                <input type="date" class="form-control">
+                <input type="date" class="form-control"
+                    [(ngModel)]="paciente.fec_nac"
+                    [disabled]="guardando">
             </div>
             <!-- Sexo -->
             <div class="col-md-4">
                 <label class="form-label fw-semibold">Sexo</label>
-                <input type="text" class="form-control" placeholder="Ej. Masculino">
+                <select class="form-control" [(ngModel)]="paciente.sexo" [disabled]="guardando">
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
             </div>
         </div>
 
 
         <!-- BOTONES -->
         <div class="text-end mt-4">
-            <a class="btn btn-secondary me-2" routerLink="/recep/DashboardRep">Cancelar</a>
-            <button class="btn btnbrown">Guardar Paciente</button>
+            <a class="btn btn-secondary me-2" routerLink="/recep/DashboardRep" [class.disabled]="guardando">Cancelar</a>
+            <button class="btn btnbrown" (click)="guardarPaciente()" [disabled]="guardando">
+                <span *ngIf="guardando">
+                    <i class="bi bi-hourglass-split"></i> Guardando...
+                </span>
+                <span *ngIf="!guardando">Guardar Paciente</span>
+            </button>
         </div>
     </div>
 </div>

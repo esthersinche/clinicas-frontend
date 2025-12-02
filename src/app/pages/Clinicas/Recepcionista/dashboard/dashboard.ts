@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Navbar } from '../shared/navbar/navbar';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CitaService } from '../../../../services/cita.service';
+import { Cita } from '../../../../models/cita.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,58 +13,88 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class DashboardRecep {
-  // --------------------------
-  // 1. LISTA DE CITAS (SIMULADA)
-  // --------------------------
-  citas = [
-    {
-      paciente: "Juan Pérez",
-      doctor: "Dr. Ricardo Gómez",
-      especialidad: "Cardiología",
-      canal: "Presencial",
-      inicio: "2025-01-28 08:30",
-      fin: "2025-01-28 09:00",
-      estado: "Pendiente"
-    },
-    {
-      paciente: "Ana Torres",
-      doctor: "Dra. Ana Salinas",
-      especialidad: "Pediatría",
-      canal: "Virtual",
-      inicio: "2025-01-28 10:00",
-      fin: "2025-01-28 10:30",
-      estado: "Pendiente"
-    }
-  ];
+export class DashboardRecep implements OnInit {
+  citas: Cita[] = [];
+  citasFiltradas: Cita[] = [];
+  cargando: boolean = false;
+  error: string = '';
 
-  // --------------------------
-  // 2. Variables de filtro
-  // --------------------------
+  // Variables de filtro
   filtroDoctor: string = "";
   filtroEsp: string = "";
   filtroPaciente: string = "";
 
-  // --------------------------
-  // 3. Función para filtrar
-  // --------------------------
-  aplicarFiltros() {
-    console.log("Doctor:", this.filtroDoctor);
-    console.log("Especialidad:", this.filtroEsp);
-    console.log("Paciente:", this.filtroPaciente);
+  // Para obtener citas necesitamos un ID de doctor temporal
+  // En producción esto vendría del usuario logueado
+  idDoctorActual: string = "1"; // Temporal
 
-    // Aquí solo mostramos un mensaje para presentación
-    alert("Filtros aplicados.");
+  constructor(private citaService: CitaService) {}
+
+  ngOnInit(): void {
+    this.cargarCitas();
   }
 
-  // --------------------------
-  // 4. Funciones de acciones
-  // --------------------------
-  cancelarCita() {
-    alert("La cita ha sido cancelada.");
+  cargarCitas(): void {
+    this.cargando = true;
+    this.error = '';
+
+    // Por ahora cargamos citas de un doctor específico
+    // porque no existe endpoint para listar todas
+    this.citaService.obtenerCitasPorDoctor(this.idDoctorActual).subscribe({
+      next: (data) => {
+        this.citas = data;
+        this.citasFiltradas = data;
+        this.cargando = false;
+      },
+      error: (err) => {
+        this.error = 'Error al cargar citas. Verifica que el backend esté activo.';
+        console.error('Error:', err);
+        this.cargando = false;
+        // Mantener datos de ejemplo si falla
+        this.citas = [];
+        this.citasFiltradas = [];
+      }
+    });
   }
 
-  guardarReprogramacion() {
-    alert("La cita ha sido reprogramada.");
+  aplicarFiltros(): void {
+    this.citasFiltradas = this.citas.filter(cita => {
+      const cumpleDoctor = !this.filtroDoctor || cita.doctor.nombre.toLowerCase().includes(this.filtroDoctor.toLowerCase());
+      const cumpleEsp = !this.filtroEsp || cita.especialidad.toLowerCase().includes(this.filtroEsp.toLowerCase());
+      const cumplePaciente = !this.filtroPaciente || cita.paciente.nombre.toLowerCase().includes(this.filtroPaciente.toLowerCase());
+      
+      return cumpleDoctor && cumpleEsp && cumplePaciente;
+    });
+  }
+
+  cancelarCita(citaId: string): void {
+    if (confirm('¿Estás seguro de cancelar esta cita?')) {
+      this.citaService.cancelarCita(citaId).subscribe({
+        next: () => {
+          alert('Cita cancelada exitosamente');
+          this.cargarCitas();
+        },
+        error: (err) => {
+          alert('Error al cancelar la cita');
+          console.error('Error:', err);
+        }
+      });
+    }
+  }
+
+  guardarReprogramacion(citaId: string, nuevoInicio: string, nuevoFin: string): void {
+    this.citaService.modificarHorarioCita(citaId, {
+      inicio: nuevoInicio,
+      fin: nuevoFin
+    }).subscribe({
+      next: () => {
+        alert('Cita reprogramada exitosamente');
+        this.cargarCitas();
+      },
+      error: (err) => {
+        alert('Error al reprogramar la cita');
+        console.error('Error:', err);
+      }
+    });
   }
 }

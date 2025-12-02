@@ -1,7 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Usuario } from '../models/empleado.model';
+
+export interface LoginResponse {
+  token: string;
+  username: string;
+  rol: string;
+}
+
+export interface RegisterRequest {
+  username: string;
+  password: string;
+  empleadoId: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -11,23 +22,35 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { username, password });
+  // Login
+  login(username: string, password: string): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { username, password });
   }
 
-  logout(): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/logout`, {});
+  // Registrar usuario
+  registrar(request: RegisterRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/register`, request);
   }
 
-  registrarUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.apiUrl}/register`, usuario);
+  // Guardar token en localStorage
+  guardarToken(token: string): void {
+    localStorage.setItem('token', token);
   }
 
-  validarToken(token: string): Observable<boolean> {
-    return this.http.post<boolean>(`${this.apiUrl}/validate`, { token });
+  // Obtener token
+  obtenerToken(): string | null {
+    return localStorage.getItem('token');
   }
 
-  obtenerUsuarioActual(): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}/current`);
+  // Verificar si está autenticado
+  estaAutenticado(): boolean {
+    return this.obtenerToken() !== null;
+  }
+
+  // Cerrar sesión
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('rol');
   }
 }
