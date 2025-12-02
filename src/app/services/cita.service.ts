@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Cita, CrearCitaRequest, ModificarCitaRequest } from '../models/cita.model';
+import { Cita, CrearCitaRequest, CrearCitaResponse, ModificarCitaRequest } from '../models/cita.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class CitaService {
   constructor(private http: HttpClient) { }
 
   // Crear nueva cita
-  crearCita(request: CrearCitaRequest): Observable<Cita> {
-    return this.http.post<Cita>(this.apiUrl, request);
+  crearCita(request: CrearCitaRequest): Observable<CrearCitaResponse> {
+    return this.http.post<CrearCitaResponse>(this.apiUrl, request);
   }
 
   // Obtener cita por ID

@@ -96,9 +96,9 @@
                         <td>
                             <span class="badge" 
                                 [ngClass]="{
-                                    'bg-warning text-dark': cita.estado === 'PROGRAMADA',
-                                    'bg-success': cita.estado === 'COMPLETADA',
-                                    'bg-danger': cita.estado === 'CANCELADA'
+                                    'bg-warning text-dark': cita.estado === 'Pendiente',
+                                    'bg-success': cita.estado === 'Asistio',
+                                    'bg-danger': cita.estado === 'Desercion'
                                 }">
                                 {{ cita.estado }}
                             </span>
@@ -106,7 +106,7 @@
                         <td class="text-center">
                             <button class="btn btn-sm btn-outline-danger" 
                                 (click)="cancelarCita(cita.id?.id || '')"
-                                *ngIf="cita.estado === 'PROGRAMADA'">
+                                *ngIf="cita.estado === 'Pendiente'">
                                 Cancelar
                             </button>
                         </td>

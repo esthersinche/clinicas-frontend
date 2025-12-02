@@ -5,8 +5,12 @@ import { Observable } from 'rxjs';
 export interface Doctor {
   id?: string;
   nombre: string;
-  especialidad: string;
-  empleadoId: string;
+  apellido: string;
+  telefono: string;
+  email: string;
+  cmp: string;
+  consultorio: string;
+  especialidades: string[];
 }
 
 @Injectable({

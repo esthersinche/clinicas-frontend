@@ -49,6 +49,6 @@ export class DashboardDoc implements OnInit {
   }
 
   obtenerCitasProgramadas(): Cita[] {
-    return this.citas.filter(c => c.estado === 'PROGRAMADA');
+    return this.citas.filter(c => c.estado === 'Pendiente');
   }
 }

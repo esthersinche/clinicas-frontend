@@ -5,119 +5,232 @@
         <h2 class="fw-bold text-secondary">Generar Nueva Cita</h2>
         <p class="text-muted">Busca un paciente y completa los datos para registrar su cita.</p>
     </div>
+
+    <!-- ALERTAS -->
+    <div class="alert alert-success" *ngIf="exito">
+        <i class="bi bi-check-circle"></i> {{ exito }}
+    </div>
+
+    <div class="alert alert-danger" *ngIf="error">
+        <i class="bi bi-exclamation-triangle"></i> {{ error }}
+    </div>
+
     <!-- BUSCAR PACIENTE -->
     <div class="card shadow-sm p-4 mb-4">
         <h5 class="fw-bold text-secondary mb-3">1. Buscar Paciente</h5>
+        
+        <!-- Búsqueda por DNI -->
         <div class="row g-3">
             <div class="col-md-4">
                 <label class="form-label fw-semibold">DNI del Paciente</label>
-                <input type="text" class="form-control" placeholder="Ej. 74251839">
+                <input type="text" class="form-control" placeholder="Ej. 74251839"
+                    [(ngModel)]="dniBusqueda" maxlength="8" [disabled]="buscandoPaciente">
             </div>
             <div class="col-md-2 d-flex align-items-end">
-                <button class="btn btnbrown w-100">Buscar</button>
+                <button class="btn btnbrown w-100" (click)="buscarPacientePorDni()" [disabled]="buscandoPaciente">
+                    <span *ngIf="!buscandoPaciente">Buscar</span>
+                    <span *ngIf="buscandoPaciente">Buscando...</span>
+                </button>
             </div>
         </div>
-        <!-- RESULTADO DE BÚSQUEDA (ejemplo) -->
-        <div class="mt-3">
+
+        <!-- Resultado de búsqueda por DNI -->
+        <div class="mt-3" *ngIf="pacienteEncontrado">
             <p class="text-muted small">Resultado:</p>
             <div class="alert alert-light border d-flex justify-content-between align-items-center">
                 <div>
-                    <span class="fw-semibold">Juan Pérez</span> — DNI: 74251839  
+                    <span class="fw-semibold">{{ pacienteEncontrado.nombre }}</span> — DNI: {{ pacienteEncontrado.dni }}
                 </div>
-                <button class="btn btn-sm btn-outline-primary">Seleccionar</button>
+                <button class="btn btn-sm btn-outline-primary" (click)="seleccionarPaciente(pacienteEncontrado)">
+                    Seleccionar
+                </button>
+            </div>
+        </div>
+
+        <!-- Paciente seleccionado -->
+        <div class="mt-3" *ngIf="pacienteSeleccionado">
+            <div class="alert alert-success d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="bi bi-check-circle"></i> 
+                    <span class="fw-semibold">{{ pacienteSeleccionado.nombre }}</span> — DNI: {{ pacienteSeleccionado.dni }}
+                </div>
+                <button class="btn btn-sm btn-outline-secondary" (click)="limpiarSeleccionPaciente()">
+                    Cambiar
+                </button>
+            </div>
+        </div>
+
+        <!-- TABLA DE TODOS LOS PACIENTES -->
+        <div class="mt-4" *ngIf="!pacienteSeleccionado">
+            <p class="text-muted small">O selecciona de la lista de pacientes registrados:</p>
+            
+            <div class="alert alert-info" *ngIf="cargandoPacientes">
+                Cargando pacientes...
+            </div>
+
+            <div class="table-responsive" *ngIf="!cargandoPacientes">
+                <table class="table table-hover table-sm">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>DNI</th>
+                            <th>Teléfono</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pac of pacientes">
+                            <td>{{ pac.nombre }}</td>
+                            <td>{{ pac.dni }}</td>
+                            <td>{{ pac.tel }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary" (click)="seleccionarPaciente(pac)">
+                                    Seleccionar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="pacientes.length === 0">
+                            <td colspan="4" class="text-center text-muted">No hay pacientes registrados</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    <!-- DATOS DE LA CITA (PASO 1) -->
+    <!-- DATOS DE LA CITA (PASO 2) -->
     <div class="card shadow-sm p-4 mb-4">
         <h5 class="fw-bold text-secondary mb-3">2. Datos de la Cita</h5>
         <div class="row g-3">
             <!-- Motivo -->
             <div class="col-md-12">
-                <label class="form-label fw-semibold">Motivo</label>
-                <textarea class="form-control" rows="2" placeholder="Describir brevemente el motivo de la cita"></textarea>
+                <label class="form-label fw-semibold">Motivo *</label>
+                <textarea class="form-control" rows="2" 
+                    placeholder="Describir brevemente el motivo de la cita"
+                    [(ngModel)]="nuevaCita.motivo"
+                    [disabled]="guardandoCita"></textarea>
             </div>
             <!-- Especialidad -->
             <div class="col-md-4">
-                <label class="form-label fw-semibold">Especialidad</label>
-                <select class="form-select">
+                <label class="form-label fw-semibold">Especialidad *</label>
+                <select class="form-select" [(ngModel)]="nuevaCita.especialidad" [disabled]="guardandoCita">
                     <option value="">Seleccionar...</option>
                     <option>Cardiología</option>
                     <option>Pediatría</option>
                     <option>Ginecología</option>
                     <option>Dermatología</option>
+                    <option>Medicina General</option>
                 </select>
-            </div>
-            <!-- Estado -->
-            <div class="col-md-4">
-                <label class="form-label fw-semibold">Estado</label>
-                <input type="text" class="form-control" value="Pendiente" disabled>
             </div>
             <!-- Canal -->
             <div class="col-md-4">
-                <label class="form-label fw-semibold">Canal</label>
-                <select class="form-select">
-                    <option>Presencial</option>
-                    <option>Virtual</option>
-                    <option>Telefónico</option>
+                <label class="form-label fw-semibold">Canal *</label>
+                <select class="form-select" [(ngModel)]="nuevaCita.canal" [disabled]="guardandoCita">
+                    <option value="Presencial">Presencial</option>
+                    <option value="Virtual">Virtual</option>
                 </select>
             </div>
             <!-- Fecha -->
             <div class="col-md-4">
-                <label class="form-label fw-semibold">Fecha</label>
-                <input type="date" class="form-control">
+                <label class="form-label fw-semibold">Fecha *</label>
+                <input type="date" class="form-control" 
+                    [(ngModel)]="nuevaCita.fecha"
+                    [disabled]="guardandoCita">
             </div>
             <!-- Hora inicio -->
-            <div class="col-md-4">
-                <label class="form-label fw-semibold">Horario de Inicio</label>
-                <input type="time" class="form-control">
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Horario de Inicio *</label>
+                <input type="time" class="form-control" 
+                    [(ngModel)]="nuevaCita.horaInicio"
+                    [disabled]="guardandoCita">
             </div>
             <!-- Hora fin -->
-            <div class="col-md-4">
-                <label class="form-label fw-semibold">Horario de Fin</label>
-                <input type="time" class="form-control">
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Horario de Fin *</label>
+                <input type="time" class="form-control" 
+                    [(ngModel)]="nuevaCita.horaFin"
+                    [disabled]="guardandoCita">
             </div>
         </div>
     </div>
-    <!-- ASIGNAR DOCTOR (PASO 2) -->
+
+    <!-- ASIGNAR DOCTOR (PASO 3) -->
     <div class="card shadow-sm p-4">
         <h5 class="fw-bold text-secondary mb-3">3. Asignar Doctor</h5>
+        
         <!-- Filtro por nombre -->
         <div class="row g-3 mb-3">
             <div class="col-md-6">
                 <label class="form-label fw-semibold">Buscar Doctor (por nombre):</label>
-                <input type="text" class="form-control" placeholder="Ej. Ricardo Gómez">
+                <input type="text" class="form-control" 
+                    placeholder="Ej. Ricardo Gómez"
+                    [(ngModel)]="nombreDoctorBusqueda">
             </div>
         </div>
-        <!-- LISTA DE DOCTORES DISPONIBLES -->
-        <p class="text-muted small">Doctores disponibles según especialidad seleccionada:</p>
-        <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th>Doctor</th>
-                        <th>Especialidad</th>
-                        <th>Consultorio</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Ejemplo -->
-                    <tr>
-                        <td>Dr. Ricardo Gómez</td>
-                        <td>Cardiología</td>
-                        <td>Consultorio 05</td>
-                        <td class="text-center">
-                            <button class="btn btn-sm btn-outline-primary">Seleccionar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+
+        <!-- Doctor seleccionado -->
+        <div class="alert alert-success d-flex justify-content-between align-items-center" *ngIf="doctorSeleccionado">
+            <div>
+                <i class="bi bi-check-circle"></i> 
+                <span class="fw-semibold">{{ doctorSeleccionado.nombre }} {{ doctorSeleccionado.apellido }}</span> — 
+                <span *ngFor="let esp of doctorSeleccionado.especialidades; let last = last">
+                    {{ esp }}<span *ngIf="!last">, </span>
+                </span>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary" (click)="limpiarSeleccionDoctor()">
+                Cambiar
+            </button>
         </div>
+
+        <!-- LISTA DE DOCTORES DISPONIBLES -->
+        <div *ngIf="!doctorSeleccionado">
+            <p class="text-muted small">Doctores disponibles:</p>
+
+            <div class="alert alert-info" *ngIf="cargandoDoctores">
+                Cargando doctores...
+            </div>
+
+            <div class="table-responsive" *ngIf="!cargandoDoctores">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Doctor</th>
+                            <th>Especialidad</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let doc of doctoresFiltrados">
+                            <td>{{ doc.nombre }} {{ doc.apellido }}</td>
+                            <td>
+                                <span *ngFor="let esp of doc.especialidades; let last = last">
+                                    {{ esp }}<span *ngIf="!last">, </span>
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-outline-primary" (click)="seleccionarDoctor(doc)">
+                                    Seleccionar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="doctoresFiltrados.length === 0">
+                            <td colspan="3" class="text-center text-muted">No hay doctores disponibles</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- BOTONES -->
         <div class="text-end mt-4">
-            <a class="btn btn-secondary me-2" routerLink="/recep/DashboardRep">Cancelar</a>
-            <button class="btn btnbrown px-4">Guardar Cita</button>
+            <a class="btn btn-secondary me-2" routerLink="/recep/DashboardRep" [class.disabled]="guardandoCita">
+                Cancelar
+            </a>
+            <button class="btn btnbrown px-4" (click)="guardarCita()" [disabled]="guardandoCita">
+                <span *ngIf="guardandoCita">
+                    <i class="bi bi-hourglass-split"></i> Guardando...
+                </span>
+                <span *ngIf="!guardandoCita">Guardar Cita</span>
+            </button>
         </div>
     </div>
 

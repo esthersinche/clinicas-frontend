@@ -3,8 +3,8 @@ export interface Cita {
     id: string;
   };
   motivo: string;
-  estado: 'PROGRAMADA' | 'CANCELADA' | 'COMPLETADA';
-  canal: 'PRESENCIAL' | 'VIRTUAL';
+  estado: 'Pendiente' | 'Asistio' | 'Desercion';
+  canal: 'Presencial' | 'Virtual';
   inicio: string;
   fin: string;
   paciente: {
@@ -21,17 +21,29 @@ export interface Cita {
 }
 
 export interface CrearCitaRequest {
-  doc_info_cita: {
-    idDoctor: string;
-    nombreDoctor: string;
-    especialidad: string;
+  dni_pac: string;
+  motivo_cita: string;
+  espe_cita: string;
+  estado_cita: 'Pendiente' | 'Asistio' | 'Desercion';
+  canal_cita: 'Presencial' | 'Virtual';
+  inicio_cita: string;
+  fin_cita: string;
+  id_pac: string;
+  id_doc: string;
+  pac_info_req: {
+    nom_com_pac: string;
+    dni_pac: string;
   };
-  pac_info_cita: {
-    idPaciente: string;
-    nombrePaciente: string;
+  doc_info_req: {
+    nom_com_doc: string;
+    espe_doc: string;
+    consult_doc: string;
   };
-  inicio: string;
-  fin: string;
+}
+
+export interface CrearCitaResponse {
+  cita_id: string;
+  message_cita: string;
 }
 
 export interface ModificarCitaRequest {
